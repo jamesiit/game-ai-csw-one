@@ -12,10 +12,14 @@ public class PlayerMovement : MonoBehaviour
     public GameObject bulletPrefab;
     public float bulletSpeed = 10;
 
+    public int maxHealth = 100;
+    public int currentHealth;
+
     void Start()
     {
         // initialize the physics engine
         rb = GetComponent<Rigidbody>();
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -56,5 +60,11 @@ public class PlayerMovement : MonoBehaviour
             // physics engine will fire the bullet at the facing direction by a certain speed
             bullet.GetComponent<Rigidbody>().linearVelocity = bulletSpawnPoint.forward * bulletSpeed;
         }
+    }
+
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        Debug.Log("Player took damage of: " + damageAmount + " Current HP is: " + currentHealth);
     }
 }
