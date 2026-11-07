@@ -75,3 +75,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 .idea/.idea.w2083098_James_Motha_CW2/.idea/awsToolkit.xml
 .idea/.idea.w2083098_James_Motha_CW2/.idea/vcs.xml
+.idea/.name
+.idea/vcs.xml
+.idea/workspace.xml
