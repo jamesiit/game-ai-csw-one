@@ -1,0 +1,76 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ArtefactSpawner : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    // the array of the six artefact prefabs
+    public GameObject[] artefactPrefabs;
+    
+    public int itemsPerType = 3;
+
+    // total game arena size is 30 x 30 units
+    public float mapSizeX = 15f;
+    public float mapSizeZ = 15f;
+
+    // minimum distance between objects
+    public float minSpacing = 5f;
+
+
+    void Start()
+    {
+        SpawnArtefacts();
+    }
+
+    void SpawnArtefacts()
+    {
+        
+        // remember every spawned position
+        List<Vector3> spawnedPositions = new List<Vector3>();
+        
+        // iterate through the prefab objects
+        foreach (GameObject prefab in artefactPrefabs)
+        {
+            int spawnedCount = 0;
+            
+            while (spawnedCount < itemsPerType)
+            {
+                
+                // random spots is picked inside the arena
+                float randomX = Random.Range(-mapSizeX, mapSizeX);
+                float randomZ = Random.Range(-mapSizeZ, mapSizeZ);
+
+                // create a new random position from the above random x and z values
+                Vector3 testPosition = transform.position + new Vector3(randomX, 0.4f, randomZ);
+
+                // check if the random position landed inside a solid wall, and we raise the Y coordinate to 1.5f so the floor is ignored
+                Vector3 radarHeight = new Vector3(testPosition.x, 1.5f, testPosition.z);
+                bool isInsideWall = Physics.CheckSphere(radarHeight, 0.5f);
+
+                // check if it's close to another item
+                bool isTooCloseToAnotherItem = false;
+
+                /* check the spawnedPositions and for each position, check if the distance between 
+                the spawned position and the ones that exist in the List are within the boundaries of the minimum spacing! */
+                foreach (Vector3 existingPosition in spawnedPositions)
+                {
+                    if (Vector3.Distance(testPosition, existingPosition) < minSpacing)
+                    {
+                        isTooCloseToAnotherItem = true;
+                        break;
+                    }
+                }
+
+                /* if the item to be spawned is not inside a wall and if it is not too close to another item, let it through
+                and update the List */
+                if (!isInsideWall && !isTooCloseToAnotherItem)
+                {
+                    Instantiate(prefab, testPosition, Quaternion.identity);
+                    spawnedPositions.Add(testPosition);
+                    spawnedCount++;
+                }
+            }
+        }
+    }
+}

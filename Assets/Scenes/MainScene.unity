@@ -3142,6 +3142,8 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 1618198809}
   bulletPrefab: {fileID: 6033113409518290151, guid: dc8e994b0507e3d47a16a55ed87590b3, type: 3}
   bulletSpeed: 10
+  maxHealth: 100
+  currentHealth: 0
 --- !u!54 &1664331419
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4277,6 +4279,61 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!1 &2033463266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2033463268}
+  - component: {fileID: 2033463267}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2033463267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033463266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b78e28361d4be46bc35e974401653d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArtefactSpawner
+  artefactPrefabs:
+  - {fileID: 5339774614467286770, guid: 529ee9d0df4f3d648a981762d2d4b611, type: 3}
+  - {fileID: 2557500669876859717, guid: 5239917da1664804286a86e807638ab5, type: 3}
+  - {fileID: 274365749694782680, guid: 0edbeb6b138800842a493232e90292f5, type: 3}
+  - {fileID: 485926569570507229, guid: cbe5e05b9bef006438238d17d9c7f1a4, type: 3}
+  - {fileID: 7974132807830419177, guid: 98bd5299a068f094680bed02fec4156f, type: 3}
+  - {fileID: 515765603924925854, guid: 9cae234dd01d66c40b74baa95072cef8, type: 3}
+  itemsPerType: 3
+  mapSizeX: 15
+  mapSizeZ: 15
+  minSpacing: 5
+--- !u!4 &2033463268
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033463266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2076308171
 GameObject:
   m_ObjectHideFlags: 0
@@ -4446,3 +4503,4 @@ SceneRoots:
   - {fileID: 1873770743}
   - {fileID: 1675766502}
   - {fileID: 1664331416}
+  - {fileID: 2033463268}
