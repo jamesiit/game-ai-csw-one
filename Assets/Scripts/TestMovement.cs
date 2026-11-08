@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+// create test class to assess if navmesh worked for the arena
 public class Test : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
