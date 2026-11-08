@@ -4318,6 +4318,7 @@ MonoBehaviour:
   itemsPerType: 3
   mapSizeX: 15
   mapSizeZ: 15
+  playerTransform: {fileID: 1664331416}
   minSpacing: 5
 --- !u!4 &2033463268
 Transform:
