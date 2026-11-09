@@ -12,7 +12,10 @@ public class Bullet : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        // bullet gets destroyed when it hits a wall or an obstacle. Leaving this here for now
-        Destroy(gameObject);
+        // the bullet destroys itself only when it hits something which is not a player and an NPC
+        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.GetComponent<BaseNPC>())
+        {
+            Destroy(gameObject);
+        }
     }
 }
