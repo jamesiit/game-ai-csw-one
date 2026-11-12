@@ -7,9 +7,9 @@ public class BaseNPC : MonoBehaviour
     // group the variables under NPC Data in the inspector
     [Header("NPC Data")] 
     public string npcId = "NPC_1";
-    public string currentState = "Patrol";
+    public string currentState = "PATROL";
     public int maxHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
 
     [Header("UI")] 
     public TextMeshPro statusText;
