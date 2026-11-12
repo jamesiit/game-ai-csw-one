@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 46163115}
   - component: {fileID: 46163114}
   - component: {fileID: 46163118}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 86245375}
   - component: {fileID: 86245374}
   - component: {fileID: 86245378}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 184535417}
   - component: {fileID: 184535416}
   - component: {fileID: 184535420}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boundary Wall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 197334611}
   - component: {fileID: 197334610}
   - component: {fileID: 197334614}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 295868756}
   - component: {fileID: 295868755}
   - component: {fileID: 295868759}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -797,7 +797,7 @@ GameObject:
   - component: {fileID: 451680937}
   - component: {fileID: 451680936}
   - component: {fileID: 451680940}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -930,7 +930,7 @@ GameObject:
   - component: {fileID: 625366341}
   - component: {fileID: 625366340}
   - component: {fileID: 625366344}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boundary Wall 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1372,7 +1372,7 @@ GameObject:
   - component: {fileID: 810766011}
   - component: {fileID: 810766010}
   - component: {fileID: 810766014}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boundary Wall 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1659,7 +1659,7 @@ GameObject:
   - component: {fileID: 963794215}
   - component: {fileID: 963794214}
   - component: {fileID: 963794218}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room C Wall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2006,7 +2006,7 @@ GameObject:
   - component: {fileID: 1099604970}
   - component: {fileID: 1099604969}
   - component: {fileID: 1099604973}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2139,7 +2139,7 @@ GameObject:
   - component: {fileID: 1105044764}
   - component: {fileID: 1105044763}
   - component: {fileID: 1105044767}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room C Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2272,7 +2272,7 @@ GameObject:
   - component: {fileID: 1165268760}
   - component: {fileID: 1165268759}
   - component: {fileID: 1165268763}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2436,7 +2436,7 @@ GameObject:
   - component: {fileID: 1305398612}
   - component: {fileID: 1305398611}
   - component: {fileID: 1305398615}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room A Wall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2569,7 +2569,7 @@ GameObject:
   - component: {fileID: 1309581286}
   - component: {fileID: 1309581285}
   - component: {fileID: 1309581289}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2733,7 +2733,7 @@ GameObject:
   - component: {fileID: 1364337040}
   - component: {fileID: 1364337039}
   - component: {fileID: 1364337043}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2866,7 +2866,7 @@ GameObject:
   - component: {fileID: 1372961471}
   - component: {fileID: 1372961470}
   - component: {fileID: 1372961474}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boundary Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3129,6 +3129,57 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393330049}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1424075661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1424075663}
+  - component: {fileID: 1424075662}
+  m_Layer: 0
+  m_Name: AStar_Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1424075662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424075661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed0b9a66a43448b8b121a48bc874a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Grid
+  unwalkableMask:
+    serializedVersion: 2
+    m_Bits: 64
+  gridWorldSize: {x: 30, y: 30}
+  nodeRadius: 0.5
+  gridSizeX: 0
+  gridSizeY: 0
+--- !u!4 &1424075663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424075661}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460822253
 GameObject:
   m_ObjectHideFlags: 0
@@ -3142,7 +3193,7 @@ GameObject:
   - component: {fileID: 1460822255}
   - component: {fileID: 1460822254}
   - component: {fileID: 1460822258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room B Wall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3275,7 +3326,7 @@ GameObject:
   - component: {fileID: 1517424184}
   - component: {fileID: 1517424183}
   - component: {fileID: 1517424187}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3439,7 +3490,7 @@ GameObject:
   - component: {fileID: 1628918918}
   - component: {fileID: 1628918917}
   - component: {fileID: 1628918921}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room A Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3973,7 +4024,7 @@ GameObject:
   - component: {fileID: 1723754463}
   - component: {fileID: 1723754462}
   - component: {fileID: 1723754466}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room B Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4106,7 +4157,7 @@ GameObject:
   - component: {fileID: 1762797747}
   - component: {fileID: 1762797746}
   - component: {fileID: 1762797750}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4270,7 +4321,7 @@ GameObject:
   - component: {fileID: 1828668618}
   - component: {fileID: 1828668617}
   - component: {fileID: 1828668621}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room D Wall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4403,7 +4454,7 @@ GameObject:
   - component: {fileID: 1838911700}
   - component: {fileID: 1838911699}
   - component: {fileID: 1838911703}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Room D Wall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4567,7 +4618,7 @@ GameObject:
   - component: {fileID: 1873770741}
   - component: {fileID: 1873770740}
   - component: {fileID: 1873770744}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4700,7 +4751,7 @@ GameObject:
   - component: {fileID: 1904217262}
   - component: {fileID: 1904217261}
   - component: {fileID: 1904217265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4833,7 +4884,7 @@ GameObject:
   - component: {fileID: 1934949683}
   - component: {fileID: 1934949682}
   - component: {fileID: 1934949686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5022,7 +5073,7 @@ GameObject:
   - component: {fileID: 2076308173}
   - component: {fileID: 2076308172}
   - component: {fileID: 2076308176}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Area Wall 13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5188,3 +5239,4 @@ SceneRoots:
   - {fileID: 1672444085}
   - {fileID: 635712912}
   - {fileID: 1809413569}
+  - {fileID: 1424075663}
