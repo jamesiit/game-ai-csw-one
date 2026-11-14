@@ -954,6 +954,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1917187632}
+  - {fileID: 1691966727}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &546405614
@@ -1013,7 +1014,7 @@ MonoBehaviour:
   npcId: NPC_2
   currentState: PATROL
   maxHealth: 100
-  currentHealth: 20
+  currentHealth: 0
   statusText: {fileID: 1917187633}
 --- !u!65 &546405617
 BoxCollider:
@@ -1113,6 +1114,9 @@ MonoBehaviour:
   waitTime: 2
   waitTimer: 0
   visionRange: 15
+  bulletPrefab: {fileID: 6033113409518290151, guid: dc8e994b0507e3d47a16a55ed87590b3, type: 3}
+  bulletSpawnPoint: {fileID: 1691966727}
+  timeBetweenShots: 0.2
 --- !u!1 &625366339
 GameObject:
   m_ObjectHideFlags: 0
@@ -4252,6 +4256,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1691966726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1691966727}
+  m_Layer: 0
+  m_Name: BulletSpawnPoint_NPC_Type2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1691966727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691966726}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.02, y: 0.12, z: 1.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 546405613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1723754461
 GameObject:

@@ -34,6 +34,17 @@ public class AStarNPC : MonoBehaviour
 
     private Seeker seeker;
 
+    // burst attack variables
+    [Header("Burst Attack Settings")] 
+    public GameObject bulletPrefab;
+
+    public Transform bulletSpawnPoint;
+    public float timeBetweenShots = 0.2f;
+
+    private int burstCount = 0;
+    private float shootTimer = 0f;
+    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -61,6 +72,14 @@ public class AStarNPC : MonoBehaviour
             case AStarState.Flank:
                 Flank();
                 break;
+            
+            case AStarState.BurstAttack:
+                BurstAttack();
+                break;
+            
+            // case AStarState.RetreatHeal:
+            //     RetreatHeal();
+            //     break;
         }
     }
 
@@ -256,5 +275,42 @@ public class AStarNPC : MonoBehaviour
             currentState = AStarState.RetreatHeal;
         }
 
+    }
+
+    void BurstAttack()
+    {
+        // stop movement
+        seeker.speed = 0f;
+
+        // find direction towards the player
+        Vector3 lookDir = (player.position - transform.position).normalized;
+        lookDir.y = 0;
+        transform.rotation = Quaternion.LookRotation(lookDir);
+
+        // configure clock
+        shootTimer -= Time.deltaTime;
+
+        if (shootTimer <= 0f)
+        {
+            if (bulletPrefab != null && bulletSpawnPoint != null)
+            {
+                GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+                bullet.GetComponent<Rigidbody>().linearVelocity = bulletSpawnPoint.forward * 15f;
+            }
+
+            shootTimer = timeBetweenShots;
+            
+            // increment count
+            burstCount++;
+            
+            if (burstCount >= 3)
+            {
+                burstCount = 0;
+                
+                UpdateUI("RELOADING");
+                currentState = AStarState.Flank;
+            }
+
+        }
     }
 }
