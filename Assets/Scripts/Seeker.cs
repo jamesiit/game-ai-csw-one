@@ -5,6 +5,9 @@ public class Seeker : MonoBehaviour
 
     [Header("A* Navigation")] 
     public float speed = 3f;
+    
+    // lock the position
+    private float startY;
 
     public Grid grid;
     private int targetIndex;
@@ -19,6 +22,7 @@ public class Seeker : MonoBehaviour
         // initialize the grid and BaseNPC
         grid = FindFirstObjectByType<Grid>();
         body = GetComponent<BaseNPC>();
+        startY = transform.position.y;
 
         // upon successful loading of the BaseNPC script, update currentState
         if (body != null)
@@ -41,9 +45,17 @@ public class Seeker : MonoBehaviour
             // the first square in the path is saved as the targetNode
             Node targetNode = grid.path[0];
 
-            // move the npc towards the targetNode in a speed which is constant 
-            transform.position = Vector3.MoveTowards(transform.position, targetNode.worldPosition, speed * Time.deltaTime);
+            // match the node's Y position to the NPC's so it doesnt get dragged down into the floor
+            Vector3 targetPosition = targetNode.worldPosition;
+            
+            targetPosition.y = startY;
 
+            // move the npc towards the targetNode in a speed which is constant 
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+            newPosition.y = startY;
+            transform.position = newPosition;
+            
             // find the direction from npc to the targetNode
             Vector3 moveDirection = (targetNode.worldPosition - transform.position).normalized;
 
