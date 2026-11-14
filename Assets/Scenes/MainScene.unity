@@ -1013,7 +1013,7 @@ MonoBehaviour:
   npcId: NPC_2
   currentState: PATROL
   maxHealth: 100
-  currentHealth: 0
+  currentHealth: 20
   statusText: {fileID: 1917187633}
 --- !u!65 &546405617
 BoxCollider:
@@ -3421,7 +3421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PathFinding
   seeker: {fileID: 546405613}
-  target: {fileID: 1664331416}
+  target: {fileID: 1380738647}
 --- !u!1 &1460822253
 GameObject:
   m_ObjectHideFlags: 0

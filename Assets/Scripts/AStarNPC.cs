@@ -7,7 +7,7 @@ public enum  AStarState
     Alert,
     Flank,
     BurstAttack,
-    Retreat
+    RetreatHeal
 }
 public class AStarNPC : MonoBehaviour
 {
@@ -193,7 +193,7 @@ public class AStarNPC : MonoBehaviour
         // when it gets in the range of the flank position, update UI
         if (distanceToFlank <= 1.5f)
         {
-            UpdateUI("IN POSITION");
+            MakeTacticalDecision();
         }
     }
     
@@ -222,5 +222,39 @@ public class AStarNPC : MonoBehaviour
             body.currentState = stateName;
             body.UpdateUI();
         }
+    }
+
+    void MakeTacticalDecision()
+    {
+        // normalize the health
+        float max = Mathf.Max(1f, body.maxHealth);
+        
+        // get a value for the health in float
+        float healthPct = body.currentHealth / max;
+
+        /* define the probability weights, like if it is 0.80 (if health is 80%, say, from above calculation healthPct comes to 0.80),
+        then here uAttack means there is a 0.80 chance to attack and uHeal means there is a 0.20 chance to retreat */
+        float uAttack = healthPct;
+        float uHeal = 1f - healthPct;
+
+        // roll a random value from 0.0 to 1.0
+        float roll = Random.value;
+        
+        // check what we get!
+        Debug.Log($"[TACTICAL FSM] Health: {healthPct * 100}% | U(Attack): {uAttack:F2} | U(Heal) : {uHeal:F2} | Roll: {roll:F2}");
+        
+        /* If the random roll is lesser than the utility of the attack, state changes to burst attack state
+         else, retreat */
+        if (roll <= uAttack)
+        {
+            UpdateUI("BURST ATTACK!");
+            currentState = AStarState.BurstAttack;
+        }
+        else
+        {
+            UpdateUI("RETREATING");
+            currentState = AStarState.RetreatHeal;
+        }
+
     }
 }
