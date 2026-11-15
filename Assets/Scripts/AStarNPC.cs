@@ -78,9 +78,9 @@ public class AStarNPC : MonoBehaviour
                 BurstAttack();
                 break;
             
-            // case AStarState.RetreatHeal:
-            //     RetreatHeal();
-            //     break;
+            case AStarState.RetreatHeal:
+                RetreatHeal();
+                break;
         }
     }
 
@@ -311,6 +311,12 @@ public class AStarNPC : MonoBehaviour
         else
         {
             UpdateUI("RETREATING");
+            
+            CalculateRetreatPosition();
+            
+            // wind the timer again
+            flankTimer = 4f;
+            
             currentState = AStarState.RetreatHeal;
         }
 
@@ -354,5 +360,102 @@ public class AStarNPC : MonoBehaviour
             }
 
         }
+    }
+
+    Transform FindNearestMedKit()
+    {
+        
+        // store the Health kits prefabs as a gameobject array
+        GameObject[] medkits = GameObject.FindGameObjectsWithTag("Health");
+
+        Transform nearest = null;
+        
+        // assign infinity to the distance so actual distance can beat it
+        float shortestDistance = Mathf.Infinity;
+        
+        
+        foreach (GameObject medkit in medkits)
+        {
+            // continue if the object doesn't exist
+            if (medkit == null)
+            {
+                continue;
+            }
+
+            // calculate the distance between the medkit and the npc
+            float distance = Vector3.Distance(transform.position, medkit.transform.position);
+
+            // take the distance and assign it to shortestDistance if it is lesser
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                nearest = medkit.transform;
+            }
+        }
+
+        return nearest;
+    }
+
+    void CalculateRetreatPosition()
+    {
+
+        // find the nearest medical kit
+        Transform nearestMedkit = FindNearestMedKit();
+
+        if (nearestMedkit != null)
+        {
+            /* assign the node to the medkit position
+            if it is in a wall, NodeFromWorldPoint will move it to an actual walkable node */
+            Node safeNode = grid.NodeFromWorldPoint(nearestMedkit.position);
+            dummyTarget.position = safeNode.worldPosition;
+        }
+        else
+        {
+            Vector3 awayFromPlayer = (transform.position - player.position).normalized;
+            
+            // calculate the retreat spot
+            Vector3 retreatSpot = transform.position + (awayFromPlayer * 10f);
+
+            Node safeNode = grid.NodeFromWorldPoint(retreatSpot);
+            dummyTarget.position = safeNode.worldPosition;
+        }
+
+    }
+
+    void RetreatHeal()
+    {
+
+        seeker.speed = 8f;
+
+        // decrement the timer so it doesn't freeze anywhere
+        flankTimer -= Time.deltaTime;
+
+        Vector3 flatNPC = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 flatTarget = new Vector3(dummyTarget.position.x, 0, dummyTarget.position.z);
+
+        if (Vector3.Distance(flatNPC, flatTarget) <= 2.0f || flankTimer <= 0f)
+        {
+            seeker.speed = 0f;
+
+            Transform usedMedKit = FindNearestMedKit();
+
+            if (usedMedKit != null && Vector3.Distance(transform.position, usedMedKit.position) <= 2.5f)
+            {
+                // increase health
+                body.currentHealth = body.maxHealth;
+                Destroy(usedMedKit.gameObject);
+                UpdateUI("HEALED -> ASSESSING");
+            }
+            else
+            {
+                UpdateUI("No MEDKITS -> ASSESSING");
+            }
+            
+            // reset the combat 
+            alertTimer = 1.5f;
+            
+            currentState = AStarState.Alert;
+        }
+
     }
 }
