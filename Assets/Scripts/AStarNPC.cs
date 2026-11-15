@@ -25,6 +25,7 @@ public class AStarNPC : MonoBehaviour
     public float waitTime = 2f;
     public float waitTimer = 0f;
     private bool isWaiting = false;
+    private float flankTimer = 0f;
 
     [Header("Tactical Settings")] 
     public float visionRange = 15f;
@@ -183,6 +184,9 @@ public class AStarNPC : MonoBehaviour
     {
         UpdateUI("ALERT");
 
+        // stop the movement
+        seeker.speed = 0f;
+        
         // give the npc some thinking state where it looks at the player and rotates
         Vector3 lookDir = (player.position - transform.position).normalized;
         lookDir.y = 0;
@@ -191,11 +195,34 @@ public class AStarNPC : MonoBehaviour
         // wind up the stopwatch
         alertTimer -= Time.deltaTime;
 
-        // once the timer is up, moves the npc to the flank position
+        /* if the timer goes below zero, run a raycast: 
+        if the player is detected, flank. Else, go back to roam state */
         if (alertTimer <= 0)
         {
-            CalculateFlankPosition();
-            currentState = AStarState.Flank;
+            // check direction to the player
+            Vector3 dirToPlayer = (player.position - transform.position).normalized;
+
+            // project a raycast
+            if (Physics.Raycast(transform.position, dirToPlayer, out RaycastHit hit, visionRange))
+            {
+                if (hit.collider.CompareTag("Player"))
+                {
+                    CalculateFlankPosition();
+                    
+                    /* give the npc 4 seconds to reach the spot
+                    this is a check to make sure it doesn't freeze in place if something goes wrong! */
+                    flankTimer = 4f;
+                    
+                    currentState = AStarState.Flank;
+                    return;
+                }
+            }
+            
+            // if the raycast has hit a brick wall, it means we (player) have hidden well
+            UpdateUI("LOST TARGET");
+            currentState = AStarState.Roam;
+
+
         }
     }
 
@@ -206,11 +233,23 @@ public class AStarNPC : MonoBehaviour
         // increase the speed from 3f to 6f
         seeker.speed = 6f;
 
+        // count down the flank timer
+        flankTimer -= Time.deltaTime;
+
+        if (flankTimer <= 0f)
+        {
+            MakeTacticalDecision();
+            return;
+        }
+        
+        // flatten coordinates to the floor
+        Vector3 flattenNPCPos = new Vector3(transform.position.x, 0, transform.position.z);
+        Vector3 flattenTarget = new Vector3(dummyTarget.position.x, 0, dummyTarget.position.z);
         
         float distanceToFlank = Vector3.Distance(transform.position, dummyTarget.position);
 
         // when it gets in the range of the flank position, update UI
-        if (distanceToFlank <= 1.5f)
+        if (distanceToFlank <= 2.0f)
         {
             MakeTacticalDecision();
         }
@@ -306,9 +345,12 @@ public class AStarNPC : MonoBehaviour
             if (burstCount >= 3)
             {
                 burstCount = 0;
+
+                // wind back the stopwatch after the bullets are over
+                alertTimer = 1.5f;
                 
-                UpdateUI("RELOADING");
-                currentState = AStarState.Flank;
+                UpdateUI("ASSESSING");
+                currentState = AStarState.Alert;
             }
 
         }
