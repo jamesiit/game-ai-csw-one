@@ -27,8 +27,14 @@ public class BaseNPC : MonoBehaviour
         we let it take some damage and we destroy the bullet */
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            TakeDamage(25);
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             
+            // only take damage if the player fired the bullet
+            if (bullet != null && bullet.isPlayerBullet)
+            {
+                TakeDamage(25);
+            }
+
             Destroy(collision.gameObject);
         }
     }

@@ -5,6 +5,8 @@ public class Bullet : MonoBehaviour
 {
 
     public float life = 3;
+    
+    public bool isPlayerBullet = false;
     private void Awake()
     {
         Destroy(gameObject, life);

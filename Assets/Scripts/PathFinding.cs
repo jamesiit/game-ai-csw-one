@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PathFinding : MonoBehaviour
 {
-    public Transform seeker, target;
     private Grid grid;
 
     void Awake()
@@ -12,15 +11,7 @@ public class PathFinding : MonoBehaviour
         grid = GetComponent<Grid>();
     }
 
-    void Update()
-    {
-        if (seeker != null && target != null)
-        {
-            FindPath(seeker.position, target.position);
-        }
-    }
-
-    void FindPath(Vector3 startPos, Vector3 targetPos)
+    public List<Node> FindPath(Vector3 startPos, Vector3 targetPos)
     {
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
@@ -46,8 +37,7 @@ public class PathFinding : MonoBehaviour
 
             if (currentNode == targetNode)
             {
-                RetracePath(startNode, targetNode);
-                return;
+                return RetracePath(startNode, targetNode);
             }
 
             foreach (Node neighbour in grid.GetNeighbours(currentNode))
@@ -72,9 +62,12 @@ public class PathFinding : MonoBehaviour
                 }
             }
         }
+        
+        // if no path found, return an empty list
+        return new List<Node>();
     }
 
-    void RetracePath(Node startNode, Node endNode)
+    List<Node> RetracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
         Node currentNode = endNode;
@@ -87,6 +80,8 @@ public class PathFinding : MonoBehaviour
 
         path.Reverse();
         grid.path = path;
+
+        return path;
     }
 
     int GetDistance(Node nodeA, Node nodeB)

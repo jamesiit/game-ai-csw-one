@@ -1,26 +1,27 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Seeker : MonoBehaviour
 {
+    [Header("A* Navigation")] public float speed = 3f;
 
-    [Header("A* Navigation")] 
-    public float speed = 3f;
-    
     // lock the position
     private float startY;
 
     public Grid grid;
-    private int targetIndex;
+    public PathFinding pathFinder;
 
-    [Header("Links")] 
-    public Transform target;
+    private List<Node> myPath = new List<Node>();
+
+    [Header("Links")] public Transform target;
     private BaseNPC body;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // initialize the grid and BaseNPC
         grid = FindFirstObjectByType<Grid>();
+        pathFinder = FindFirstObjectByType<PathFinding>();
         body = GetComponent<BaseNPC>();
         startY = transform.position.y;
 
@@ -39,36 +40,50 @@ public class Seeker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // checks if the grid exists, if the path has been drawn properly and if there is at least one square to step on for pathfinding
-        if (grid != null && grid.path != null && grid.path.Count > 0)
+        if (pathFinder == null)
         {
-            // the first square in the path is saved as the targetNode
-            Node targetNode = grid.path[0];
+            Debug.LogWarning($"[{gameObject.name}] ERROR: PathFinder is NULL!");
+            return;
+        }
 
-            // match the node's Y position to the NPC's so it doesnt get dragged down into the floor
-            Vector3 targetPosition = targetNode.worldPosition;
+        if (target == null)
+        {
+            Debug.LogWarning($"[{gameObject.name}] ERROR: Target is NULL!");
+            return;
+        }
+
+        // if the npc has stopped or the distance between it and the target is same, skip pathfinding
+        if (speed <= 0 || grid.NodeFromWorldPoint(transform.position) == grid.NodeFromWorldPoint(target.position))
+        {
+            return;
+        }
+
+        myPath = pathFinder.FindPath(transform.position, target.position);
+
+        if (myPath == null || myPath.Count == 0)
+        {
+            Node startN = grid.NodeFromWorldPoint(transform.position);
+            Node targetN = grid.NodeFromWorldPoint(target.position);
             
-            targetPosition.y = startY;
+            Debug.LogWarning($"[{gameObject.name}] Empty path! State: {body.currentState} | StartWalkable: {startN.walkable} | TargetWalkable: {targetN.walkable}");
+            return;
+        }
+        
+        Node targetNode = myPath[0];
 
-            // move the npc towards the targetNode in a speed which is constant 
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        Vector3 targetPosition = targetNode.worldPosition;
+        targetPosition.y = startY;
 
-            newPosition.y = startY;
-            transform.position = newPosition;
-            
-            // find the direction from npc to the targetNode
-            Vector3 moveDirection = (targetNode.worldPosition - transform.position).normalized;
+        Vector3 newPosition = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        newPosition.y = startY;
+        transform.position = newPosition;
 
-            // body turns only when its actually moving
-            if (moveDirection != Vector3.zero)
-            {
-                // prevent npc to look up at the waypoint
-                moveDirection.y = 0;
-                
-                // rotate the npc to face the direction
-                transform.rotation = Quaternion.LookRotation(moveDirection);
-            }
+        Vector3 moveDirection = (targetNode.worldPosition - transform.position).normalized;
 
+        if (moveDirection != Vector3.zero)
+        {
+            moveDirection.y = 0;
+            transform.rotation = Quaternion.LookRotation(moveDirection);
         }
     }
 }

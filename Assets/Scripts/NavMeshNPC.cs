@@ -111,7 +111,6 @@ public class NavMeshNPC : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, Player.position);
             
-            Debug.Log("Distance to player is: " + distance);
 
             if (distance <= AttackRange)
             {

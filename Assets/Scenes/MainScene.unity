@@ -778,6 +778,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1380738647}
+    - target: {fileID: 7474383070442083910, guid: f3b4430a469047d4388afbc7c700ed59, type: 3}
+      propertyPath: pathFinder
+      value: 
+      objectReference: {fileID: 1424075664}
     - target: {fileID: 7607509478513191433, guid: f3b4430a469047d4388afbc7c700ed59, type: 3}
       propertyPath: m_Name
       value: NPC_Type2_1
@@ -2196,7 +2200,7 @@ Transform:
   m_GameObject: {fileID: 1199877911}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.29, y: 0.5, z: -3.47}
+  m_LocalPosition: {x: 9.95, y: 0.5, z: -3.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2618,6 +2622,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1199877912}
+    - target: {fileID: 7474383070442083910, guid: f3b4430a469047d4388afbc7c700ed59, type: 3}
+      propertyPath: pathFinder
+      value: 
+      objectReference: {fileID: 1424075664}
     - target: {fileID: 7607509478513191433, guid: f3b4430a469047d4388afbc7c700ed59, type: 3}
       propertyPath: m_Name
       value: NPC_Type2_2
@@ -2925,7 +2933,7 @@ Transform:
   m_GameObject: {fileID: 1380738646}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.48, y: 0.5, z: -6.1}
+  m_LocalPosition: {x: -5.98, y: 0.5, z: -5.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3107,8 +3115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d07fd3c22ee149868bae036606dcff48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PathFinding
-  seeker: {fileID: 1518137629}
-  target: {fileID: 1380738647}
 --- !u!1 &1460822253
 GameObject:
   m_ObjectHideFlags: 0
@@ -3375,11 +3381,6 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
---- !u!4 &1518137629 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3849372032900556574, guid: f3b4430a469047d4388afbc7c700ed59, type: 3}
-  m_PrefabInstance: {fileID: 244110498}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1618198808
 GameObject:
   m_ObjectHideFlags: 0
@@ -3559,6 +3560,7 @@ GameObject:
   - component: {fileID: 1664331417}
   - component: {fileID: 1664331418}
   - component: {fileID: 1664331419}
+  - component: {fileID: 1664331420}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3708,8 +3710,6 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 1618198809}
   bulletPrefab: {fileID: 6033113409518290151, guid: dc8e994b0507e3d47a16a55ed87590b3, type: 3}
   bulletSpeed: 10
-  maxHealth: 100
-  currentHealth: 0
 --- !u!54 &1664331419
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3737,6 +3737,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1664331420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664331412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336a6df6fcda43f689c8107e56b8e6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.PlayerHealth
+  currentHealth: 500
+  damageTable:
+  - hitCategory: Glancing Blow
+    damageAmount: 5
+    weight: 60
+  - hitCategory: Solid Hit
+    damageAmount: 15
+    weight: 30
+  - hitCategory: Critical Headshot
+    damageAmount: 40
+    weight: 10
 --- !u!1 &1672444084
 GameObject:
   m_ObjectHideFlags: 0

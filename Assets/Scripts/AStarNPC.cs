@@ -32,7 +32,7 @@ public class AStarNPC : MonoBehaviour
 
     private float alertDuration = 1.5f;
     private float alertTimer = 0f;
-
+    private PathFinding pathFinder;
     private Seeker seeker;
 
     // burst attack variables
@@ -53,6 +53,7 @@ public class AStarNPC : MonoBehaviour
         body = GetComponent<BaseNPC>();
         seeker = GetComponent<Seeker>();
         grid = FindFirstObjectByType<Grid>();
+        pathFinder = FindFirstObjectByType<PathFinding>();
         
         PickRandomRoamPoint();
     }
@@ -137,8 +138,16 @@ public class AStarNPC : MonoBehaviour
             // if the node is walkable, transport it to the location of the node
             if (randomNode.walkable)
             {
-                dummyTarget.position = randomNode.worldPosition;
-                foundPoint = true;
+
+                // accept the point only if the A* can actually build a route to it
+                var testPath = pathFinder.FindPath(transform.position, randomNode.worldPosition);
+                if (testPath != null && testPath.Count > 0)
+                {
+                    dummyTarget.position = randomNode.worldPosition;
+                    foundPoint = true;
+                }
+                
+                
             }
         }
     }
@@ -246,7 +255,7 @@ public class AStarNPC : MonoBehaviour
         Vector3 flattenNPCPos = new Vector3(transform.position.x, 0, transform.position.z);
         Vector3 flattenTarget = new Vector3(dummyTarget.position.x, 0, dummyTarget.position.z);
         
-        float distanceToFlank = Vector3.Distance(transform.position, dummyTarget.position);
+        float distanceToFlank = Vector3.Distance(flattenNPCPos, flattenTarget);
 
         // when it gets in the range of the flank position, update UI
         if (distanceToFlank <= 2.0f)
@@ -257,14 +266,46 @@ public class AStarNPC : MonoBehaviour
     
     void CalculateFlankPosition()
     {
-        // calculate the flank position 5 units to the right of the player
-        Vector3 rightFlank = player.position + (player.right * 5f);
-        
-        // validate the flank position on the grid so it is walkable
-        Node flankNode = grid.NodeFromWorldPoint(rightFlank);
+        // calculate the right flank position 5 units to the right of the player and validate that its walkable
+        Node rightNode = grid.NodeFromWorldPoint(player.position + (player.right * 5f));
 
-        // transport the dummyTarget to the valid flank position
-        dummyTarget.position = flankNode.worldPosition;
+        if (rightNode.walkable)
+        {
+            dummyTarget.position = rightNode.worldPosition;
+            return;
+        }
+        
+        // calculate the left flank position 5 units to the right of the player and validate that its walkable
+        Node leftNode = grid.NodeFromWorldPoint(player.position - (player.right * 5f));
+
+        if (leftNode.walkable)
+        {
+            dummyTarget.position = leftNode.worldPosition;
+            return;
+        }
+        
+        // try the player's own tile and validate
+        Node playerNode = grid.NodeFromWorldPoint(player.position);
+
+        if (playerNode.walkable)
+        {
+            dummyTarget.position = playerNode.worldPosition;
+            return;
+        }
+        
+        // if player is next to a wall, pick the first walkable tile right next to them
+        foreach (Node neighbour in grid.GetNeighbours(playerNode))
+        {
+            if (neighbour.walkable)
+            {
+                dummyTarget.position = neighbour.worldPosition;
+                return;
+            }
+        }
+        
+        // the last resort where the npc stays put so seeker skips pathfinding cleanly
+        dummyTarget.position = transform.position;
+
     }
 
     void UpdateUI(string stateName)
