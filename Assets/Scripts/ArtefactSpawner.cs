@@ -78,7 +78,13 @@ public class ArtefactSpawner : MonoBehaviour
                 NavMeshHit playerHit;
 
                 /* we use SamplePosition here to lock the player's and item's positions into the actual walkable NavMeshArea 
-                 so the ai won't panic when it has to do the path calculations */
+                 so the ai won't panic when it has to do the path calculations, we first check if the point is first inside a wall
+                 or is too close to another item */
+                if (isInsideWall || isTooCloseToAnotherItem)
+                {
+                    continue;
+                }
+                
                 bool itemIsOnGrid = NavMesh.SamplePosition(testPosition, out itemHit, 2.0f, NavMesh.AllAreas);
                 bool playerIsOnGrid = NavMesh.SamplePosition(playerTransform.position, out playerHit, 2.0f, NavMesh.AllAreas);
 
@@ -93,12 +99,6 @@ public class ArtefactSpawner : MonoBehaviour
                     {
                         isReachable = true;
                     }
-                }
-
-                // simple debugging in case the grid snap didn't work out 
-                else
-                {
-                    Debug.LogError("Grid Snap Failed! Item on grid: " + itemIsOnGrid + " | Player on grid: " + playerIsOnGrid);
                 }
                 
                 /* if the item to be spawned is not inside a wall and if it is not too close to another item and if it is
